@@ -1,11 +1,11 @@
 # PlusAsTab javascript library
 A jQuery plugin to use the numpad plus key as a tab key equivalent.
 
-With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the *keypad* to navigate page. It is a closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry.
+With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the  [numeric keypad](http://en.wikipedia.org/wiki/Numeric_keypad) (*numpad* or *tenkey* for short) to navigate page. For numeric input it is closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry in multiple fields.
 
 * The normal <kbd>tab</kbd> key is unaffected and works as usual.
-* Plussable fields that may need to have the plus character entered into them can still use the <kbd>plus</kbd> key on the typewriter keys.
-* Laptops may not have physical keypads, but instead it is emulated with the <kbd>Fn</kbd> key (or similar). PlusAsTab is not targeted at laptop users. It is possible to use an external/separate USB keypad though.
+* Plussable fields that may need to have the plus character entered into them can still use the <kbd>+</kbd> key on the typewriter keys.
+* Laptops may not have physical numpads, but instead it is emulated with the <kbd>Fn</kbd> key (or similar). PlusAsTab is not targeted at laptop users. It is possible to use an external/separate USB numpads though.
 
 ## Demos
 * `examples/demo.html`: Simple demo for playing around.
@@ -31,8 +31,8 @@ With PlusAsTab, elements can be marked as *plussable*, allowing the user to use 
 	<li><input type="checkbox" /> Another checkbox, plussable</li>
 
 	<!-- Can be explicitly exluded from plussing -->
-	<li><input type="checkbox" data-plus-as-tab="false" /> Checkbox, plussing not enabled</li>
-	<li><input type="checkbox" class="disable-plus-as-tab" /> Another checkbox, plussing not enabled</li>
+	<li><input type="checkbox" data-plus-as-tab="false" /> Checkbox, plussing disabled</li>
+	<li><input type="checkbox" class="disable-plus-as-tab" /> Another checkbox, plussing disabled</li>
 </ol>
 ```
 
