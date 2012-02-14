@@ -8,7 +8,7 @@ With PlusAsTab, elements can be marked as *plussable*, allowing the user to use 
 * Laptops may not have physical numpads, but instead it is emulated with the <kbd>Fn</kbd> key (or similar). PlusAsTab is not targeted at laptop users. It is possible to use an external/separate USB numpads though.
 
 ## Demos
-* `examples/demo.html`: Simple demo for playing around.
+* [`example/demo.html`](http://joelpurra.github.com/plusastab/example/demo.html): Simple demo for playing around.
 
 ## Usage
 
@@ -75,6 +75,9 @@ PlusAsTab's runtime dependencies are
 
 * [jQuery](http://jquery.com/)
 * [EmulateTab](https://github.com/joelpurra/emulatetab), one of PlusAsTab's sister projects.
+
+## Browser compatibility
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](http://joelpurra.github.com/plusastab/test/) and then report any issues.
 
 ## Todo
 * Break out reusable key press functions from tests.
