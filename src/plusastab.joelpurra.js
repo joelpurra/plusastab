@@ -7,16 +7,6 @@
 * A jQuery plugin to use the numpad plus key as a tab key equivalent.
 */
 
-// $.Hoken.PlusAsTab.init();
-// Enable plus as tab for elements marked with
-// class .plus-as-tab or attribute [data-plus-as-tab=true]
-
-// $.Hoken.PlusAsTab.plusAsTab($(selector));
-// Apply plus as tab to the selected elements
-
-// Elements marked with class .disable-plus-as-tab or
-// attribute [data-plus-as-tab=false] are always excluded.
-
 /*jslint vars: true, white: true, browser: true*/
 /*global jQuery*/
 
@@ -25,8 +15,7 @@ var JoelPurra = JoelPurra || {};
 
 (function ($, namespace)
 {
-	namespace.PlusAsTab = function () {
-	};
+	namespace.PlusAsTab = {};
 
 	var eventNamespace = ".PlusAsTab";
 
@@ -98,7 +87,7 @@ var JoelPurra = JoelPurra || {};
 				return;
 			}
 
-			var wasDone = performEmulatedTabbing(true, event.shiftKey, $(event.target));
+			var wasDone = performEmulatedTabbing(true, event.shiftKey, $target);
 
 			if (wasDone) {
 

@@ -77,7 +77,7 @@ PlusAsTab's runtime dependencies are
 * [EmulateTab](https://github.com/joelpurra/emulatetab), one of PlusAsTab's sister projects.
 
 ## Todo
-* Write tests.
+* Break out reusable key press functions from tests.
 * Implement a "real world" demo.
 
 ## See also
