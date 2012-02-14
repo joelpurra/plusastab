@@ -42,8 +42,6 @@ var JoelPurra = JoelPurra || {};
 
 	var options = $.extend(true, {}, internalDefaults);
 
-	// TODO: get code for :focusable, :tabbable from jQuery UI?
-	var focusable = ":input, a[href]";
 	var enablePlusAsTab = ".plus-as-tab, [data-plus-as-tab=true]";
 	var disablePlusAsTab = ".disable-plus-as-tab, [data-plus-as-tab=false]";
 

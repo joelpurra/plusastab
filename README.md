@@ -51,9 +51,9 @@ JoelPurra.PlusOnTab.plusAsTab($(selector), false);
 ```
 
 ### Plussable elements
-Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist). These are also the elements that can be plussable.
+Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist and the tag must have some contents). These are also the elements that can be plussable.
 
-Note that `<input type="hidden" />`, `<a>` (without `href`), `disabled="disabled"` or `display: none;` elements cannot be focused.
+Note that `<input type="hidden" />`, `<a>` (without `href` or empty contents), `disabled="disabled"` or `display: none;` elements cannot be focused.
 
 ### Static elements
 Static plussable html elements can have, or be contained within elements that have, the attribute `data-plus-as-tab="true"` or the class `.plus-as-tab`. They are enabled automatically when the library has been loaded/executed.
