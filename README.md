@@ -9,6 +9,7 @@ With PlusAsTab, elements can be marked as *plussable*, allowing the user to use 
 
 ## Demos
 * [`example/demo.html`](http://joelpurra.github.com/plusastab/example/demo.html): Simple demo for playing around.
+* [`example/enter-as-tab.html`](http://joelpurra.github.com/plusastab/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
 
 ## Usage
 

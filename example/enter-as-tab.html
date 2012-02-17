@@ -1,0 +1,137 @@
+---
+layout: example
+title: Enter as tab
+---
+<style scoped="scoped">
+	input, textarea, select, button
+	{
+		display: block;
+	}
+	
+	input, textarea, select
+	{
+		min-width: 20em;
+	}
+	
+	textarea
+	{
+		height: 6em;
+	}
+	
+	input[type=radio], input[type=checkbox]
+	{
+		min-width: 2em;
+		display: inline;
+	}
+	
+	kbd
+	{
+		border-width: 2px;
+		border-style: outset;
+		padding: 1px;
+		background-color: #eee;
+	}
+	
+	ol
+	{
+		list-style-type: upper-roman;
+	}
+</style>
+<p>
+	Instead of using <kbd>tab</kbd> to navigate through elements on this page, try using
+	<kbd>enter</kbd> or <kbd>&crarr;</kbd>. Also try reverse navigation with <kbd>shift</kbd>-<kbd>enter</kbd>.
+</p>
+<p>
+	In this demo, all elements inside of the <code>&lt;form data-plus-as-tab="true"&gt;</code>
+	can use <kbd>enter</kbd>. To keep some of the desired <kbd>enter</kbd> logic, both
+	the <code>&lt;textarea&gt;</code> and <code>&lt;button type="submit"&gt;</code>
+	elements have <code>data-plus-as-tab="false"</code> attributes added to them to
+	use the normal browser behavior.
+</p>
+<form data-plus-as-tab="true">
+<fieldset>
+	<legend>Demo form fields</legend>
+	<input type="text" value="Enter skips to the next field" autofocus="autofocus" />
+	<input type="number" step="1" value="999" />
+	<ol>
+		<li>
+			<label>
+				<input type="radio" name="radio-group-1" checked="checked" />
+				Radio 1
+			</label>
+		</li>
+		<li>
+			<label>
+				<input type="radio" name="radio-group-1" />
+				Radio 2
+			</label>
+		</li>
+		<li>
+			<label>
+				<input type="radio" name="radio-group-1" />
+				Radio 3
+			</label>
+		</li>
+	</ol>
+	<input type="text" value="You can even shift-enter to go back" />
+	<!-- Exclude this textarea -->
+	<textarea data-plus-as-tab="false">Enter works as usual to make new lines in the textarea. Use tab to navigate out of it.</textarea>
+	<input type="text" value="Enter skips to the next field" />
+	<select>
+		<option>Enter skips this drop-down too</option>
+		<option>Another option</option>
+		<option>You can still use enter as usual when the drop-down is activated</option>
+		<option>Another option</option>
+	</select>
+	<!-- Exclude this submit button -->
+	<button type="submit" data-plus-as-tab="false">
+		Enter works as usual to submit on this button</button>
+	<input type="text" value="You can tab to go here" />
+</fieldset>
+</form>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../lib/emulatetab/src/emulatetab.joelpurra.js"></script>
+<script src="../src/plusastab.joelpurra.js"></script>
+<script>
+//<![CDATA[
+
+	JoelPurra.PlusAsTab.setOptions({
+		// Use enter instead of plus
+		// Number 13 found through demo at
+		// http://api.jquery.com/event.which/
+		key: 13
+	});
+
+	$("form")
+			.submit(simulateSubmitting);
+
+	$("#click-to-add-checkbox")
+			.click(addCheckboxAfter);
+
+	function addCheckboxAfter(event)
+	{
+		var $target = $(event.target);
+
+		// Explicitly enabling plussing on new checkbox
+		var $checkbox = $('<input />')
+								.attr("type", "checkbox")
+								.plusAsTab();
+
+		$checkbox.insertAfter($target);
+
+		$target.focus();
+	}
+
+	function simulateSubmitting(event)
+	{
+		event.preventDefault();
+
+		if (confirm("Simulating that the form has been submitted.\n\nWould you like to reload the page?"))
+		{
+			location.reload();
+		}
+
+		return false;
+	}
+//]]>
+</script>
