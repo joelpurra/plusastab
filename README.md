@@ -48,7 +48,18 @@ $(selector).plusAsTab(false);
 // Equivalent static function
 JoelPurra.PlusOnTab.plusAsTab($(selector));
 JoelPurra.PlusOnTab.plusAsTab($(selector), false);
+
+// Change the "tab" key from "numpad +" to something else
+JoelPurra.PlusAsTab.setOptions({
+  // Use enter instead of plus
+  // Number 13 found through demo at
+  // http://api.jquery.com/event.which/
+  key: 13
+});
 ```
+
+### Using another key instead of numpad plus
+PlusAsTab should be able to intercept most keys, since it listens to [the keydown event](http://api.jquery.com/keydown/). To change the key, use `JoelPurra.PlusAsTab.setOptions({key: YOUR_KEY});`, where `YOUR_KEY` is a number that you can find by using the [jQuery `event.which` demo](http://api.jquery.com/event.which/).
 
 ### Plussable elements
 Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist and the tag must have some contents). These are also the elements that can be plussable.
@@ -80,6 +91,7 @@ PlusAsTab's runtime dependencies are
 Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](http://joelpurra.github.com/plusastab/test/) and then report any issues.
 
 ## Todo
+* Write tests for `.setOptions(...)`.
 * Break out reusable key press functions from tests.
 * Implement a "real world" demo.
 
