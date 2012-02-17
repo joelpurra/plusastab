@@ -1,6 +1,6 @@
 ---
 layout: example
-title: Enter as tab
+title: Enter as tab demo
 ---
 <style scoped="scoped">
 	input, textarea, select, button
@@ -104,23 +104,6 @@ title: Enter as tab
 
 	$("form")
 			.submit(simulateSubmitting);
-
-	$("#click-to-add-checkbox")
-			.click(addCheckboxAfter);
-
-	function addCheckboxAfter(event)
-	{
-		var $target = $(event.target);
-
-		// Explicitly enabling plussing on new checkbox
-		var $checkbox = $('<input />')
-								.attr("type", "checkbox")
-								.plusAsTab();
-
-		$checkbox.insertAfter($target);
-
-		$target.focus();
-	}
 
 	function simulateSubmitting(event)
 	{
