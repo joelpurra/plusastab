@@ -1,4 +1,4 @@
-# PlusAsTab javascript library
+# [PlusAsTab](http://joelpurra.github.com/plusastab) javascript library
 A jQuery plugin to use the numpad plus key as a tab key equivalent.
 
 With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the  [numeric keypad](http://en.wikipedia.org/wiki/Numeric_keypad) (*numpad* or *tenkey* for short) to navigate page. For numeric input it is closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry in multiple fields.
