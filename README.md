@@ -7,6 +7,14 @@ With PlusAsTab, elements can be marked as *plussable*, allowing the user to use 
 * Plussable fields that may need to have the plus character entered into them can still use the <kbd>+</kbd> key on the typewriter keys.
 * Laptops may not have physical numpads, but instead it is emulated with the <kbd>Fn</kbd> key (or similar). PlusAsTab is not targeted at laptop users. It is possible to use an external/separate USB numpads though.
 
+## Get it
+
+To include dependencies, make sure to get the submodules too.
+
+```
+git clone --recursive git://github.com/joelpurra/plusastab.git
+```
+
 ## Demos
 * [`example/demo.html`](http://joelpurra.github.com/plusastab/example/demo.html): Simple demo for playing around.
 * [`example/enter-as-tab.html`](http://joelpurra.github.com/plusastab/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
