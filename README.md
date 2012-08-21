@@ -106,7 +106,6 @@ PlusAsTab's runtime dependencies are
 Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](http://joelpurra.github.com/plusastab/test/) and then report any issues.
 
 ## Todo
-* Write tests for `.setOptions(...)`.
 * Break out reusable key press functions from tests.
 * Implement a "real world" demo.
 
