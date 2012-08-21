@@ -65,10 +65,16 @@ JoelPurra.PlusAsTab.setOptions({
   // http://api.jquery.com/event.which/
   key: 13
 });
+
+// You can assign multiple keys as "tab" keys; just pass an array
+JoelPurra.PlusAsTab.setOptions({
+  // Use the enter key and arrow down key as tab keys
+  key: [13, 40]
+});
 ```
 
-### Using another key instead of numpad plus
-PlusAsTab should be able to intercept most keys, since it listens to [the keydown event](http://api.jquery.com/keydown/). To change the key, use `JoelPurra.PlusAsTab.setOptions({key: YOUR_KEY});`, where `YOUR_KEY` is a number that you can find by using the [jQuery `event.which` demo](http://api.jquery.com/event.which/).
+### Using another key (or keys) instead of numpad plus
+PlusAsTab should be able to intercept most keys, since it listens to [the keydown event](http://api.jquery.com/keydown/). To change the key, use `JoelPurra.PlusAsTab.setOptions({key: YOUR_KEY});`, where `YOUR_KEY` is a number that you can find by using the [jQuery `event.which` demo](http://api.jquery.com/event.which/). In case you want multiple keys to function as tab, use an array; for example `[13, 40, 107]` for the enter key, arrow down key and numpad plus key.
 
 ### Plussable elements
 Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist and the tag must have some contents). These are also the elements that can be plussable.

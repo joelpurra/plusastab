@@ -20,12 +20,12 @@ var JoelPurra = JoelPurra || {};
 	var eventNamespace = ".PlusAsTab";
 
 	// Keys from
+	// http://api.jquery.com/event.which/
 	// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
 	var KEY_NUM_PLUS = 107;
 
 	// Add options defaults here
 	var internalDefaults = {
-		// TODO: allow multiple keys in an array options.keys
 		key: KEY_NUM_PLUS
 	};
 
@@ -53,16 +53,26 @@ var JoelPurra = JoelPurra || {};
 			return false;
 		}
 
+		function isChosenTabkey(key) {
+			if (key === options.key
+				|| ($.isArray(options.key)
+					&& $.inArray(key, options.key) !== -1)) {
+
+				return true;
+			}
+
+			return false;
+		}
+
 		function isEmulatedTabkey(event) {
 
 			// Checked later for reverse tab
 			//&& !event.shiftKey
 
-			// TODO: allow multiple keys in an array options.keys
 			if (!event.altKey
 				&& !event.ctrlKey
 				&& !event.metaKey
-				&& event.which === options.key) {
+				&& isChosenTabkey(event.which)) {
 
 				return true;
 			}

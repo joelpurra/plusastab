@@ -102,55 +102,72 @@
 		}
 	}
 
-	// Numpad plus simulation
+	// Simulated keypress helpers
 	{
-		// Keys from
-		// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
-		var KEY_NUM_PLUS = 107;
-
-		function getSimulatedNumpadPlusKeyEventOptions(shift)
+		function getSimulatedKeyEventOptions(keyCode, shift)
 		{
 			shift = !!shift;
 
 			var key =
 				{
 					// Cannot use "which" with $.simulate
-					keyCode: KEY_NUM_PLUS,
+					keyCode: keyCode,
 					shiftKey: shift
 				};
 
 			return key;
 		}
 
-		function pressNumpadPlus($element, shift)
+		function pressSimulatedKeyCode($element, keyCode, shift)
 		{
-			shift = !!shift;
+			var key = getSimulatedKeyEventOptions(keyCode, shift);
 
-			var key = getSimulatedNumpadPlusKeyEventOptions(shift);
-
-			return pressKey(
-				$element,
-				key,
-				function ()
-				{
-					// TODO: simulate '+' being added to text boxes (but it will be cancelled)
-				});
+			// TODO: simulate 'keyCode' being added to text boxes (but it will be cancelled)
+			return pressKey($element, key, $.noop);
 		}
+	}
 
+	// Tabbing related key press helpers
+	{
 		function getFocusedElement()
 		{
 			return $(document.activeElement);
 		}
 
-		function pressNumpadPlusFromFocusedElement(shift)
+		function pressKeyFromFocusedElement(keyCode, shift)
 		{
-			return pressNumpadPlus(getFocusedElement(), shift);
+			return pressSimulatedKeyCode(getFocusedElement(), keyCode, shift);
+		}
+
+		function pressKeyAndGetFocusedElement(keyCode, shift)
+		{
+			return pressKeyFromFocusedElement(keyCode, shift)
+				.pipe(getFocusedElement);
+		}
+	}
+
+	// Test keys simulation helpers
+	{
+		// Keys from
+		// http://api.jquery.com/event.which/
+		// https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
+		var KEY_ENTER = 13;
+		var KEY_ARROW_DOWN = 40;
+		var KEY_NUM_PLUS = 107;
+
+		function pressEnterAndGetFocusedElement(shift)
+		{
+			return pressKeyAndGetFocusedElement(KEY_ENTER, shift);
+		}
+
+		function pressArrowDownAndGetFocusedElement(shift)
+		{
+			return pressKeyAndGetFocusedElement(KEY_ARROW_DOWN, shift);
 		}
 
 		function pressNumpadPlusAndGetFocusedElement(shift)
 		{
-			return pressNumpadPlusFromFocusedElement(shift)
-				.pipe(getFocusedElement);
+			return pressKeyAndGetFocusedElement(KEY_NUM_PLUS, shift);
 		}
 	}
 
@@ -164,6 +181,24 @@
 			$div.appendTo($qunitFixture);
 
 			$container = $div;
+		}
+
+		function resetKeyOptions(){
+			JoelPurra.PlusAsTab.setOptions({
+			  key: KEY_NUM_PLUS
+			});
+		}
+
+		function useEnterKeyOptions(){
+			JoelPurra.PlusAsTab.setOptions({
+			  key: KEY_ENTER
+			});
+		}
+
+		function useEnterArrowDownKeysOptions(){
+			JoelPurra.PlusAsTab.setOptions({
+			  key: [KEY_ENTER, KEY_ARROW_DOWN]
+			});
 		}
 
 		function fnPlusA()
@@ -214,10 +249,32 @@
 			assertFocusedId("end");
 		}
 
+		function enterAssertId(id, shift)
+		{
+			return function ()
+			{
+				return pressEnterAndGetFocusedElement(shift)
+					.pipe(function ($focused)
+					{
+						assertId($focused, id);
+					});
+			};
+		}
+
+		function arrowDownAssertId(id, shift)
+		{
+			return function ()
+			{
+				return pressArrowDownAndGetFocusedElement(shift)
+					.pipe(function ($focused)
+					{
+						assertId($focused, id);
+					});
+			};
+		}
+
 		function numpadPlusAssertId(id, shift)
 		{
-			shift = !!shift;
-
 			return function ()
 			{
 				return pressNumpadPlusAndGetFocusedElement(shift)
@@ -332,6 +389,100 @@
 				.pipe(numpadPlusAssertId("end", true))
 				.pipe(assertEnd)
 				.pipe(start);
+		});
+
+	} ());
+
+	(function ()
+	{
+		module("setOptions",
+		{
+			setup: normalSetup
+		});
+
+		asyncTest("Enter as tab", 5, function ()
+		{
+			useEnterKeyOptions();
+
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" data-plus-as-tab="true" />')
+				.append('<input id="a" type="text" value="text field that is plussable" data-plus-as-tab="true" />')
+				.append('<input id="end" type="submit" value="submit button that is at the end of the plussable elements" />');
+
+			$.when()
+				.pipe(assertFocusStart)
+				.pipe(enterAssertId("a"))
+				.pipe(numpadPlusAssertId("a"))
+				.pipe(enterAssertId("end"))
+				.pipe(assertEnd)
+				.pipe(start)
+				.pipe(resetKeyOptions);
+		});
+
+		asyncTest("Enter as tab reverse", 5, function ()
+		{
+			useEnterKeyOptions();
+
+			$container
+				.append('<input id="end" type="submit" value="submit button that is at the end of the plussable elements" />')
+				.append('<input id="a" type="text" value="text field that is plussable" data-plus-as-tab="true" />')
+				.append('<input id="start" type="text" value="text field that is the starting point" data-plus-as-tab="true" />');
+
+			$.when()
+				.pipe(assertFocusStart)
+				.pipe(enterAssertId("a", true))
+				.pipe(numpadPlusAssertId("a", true))
+				.pipe(enterAssertId("end", true))
+				.pipe(assertEnd)
+				.pipe(start)
+				.pipe(resetKeyOptions);
+		});
+
+	} ());
+
+	(function ()
+	{
+		module("setOptions multiple keys",
+		{
+			setup: normalSetup
+		});
+
+		asyncTest("Elements forward", 5, function ()
+		{
+			useEnterArrowDownKeysOptions();
+
+			$container
+				.append('<input id="start" type="text" value="text field that is the starting point" data-plus-as-tab="true" />')
+				.append('<input id="a" type="text" value="text field that is plussable" data-plus-as-tab="true" />')
+				.append('<input id="end" type="submit" value="submit button that is at the end of the plussable elements" />');
+
+			$.when()
+				.pipe(assertFocusStart)
+				.pipe(enterAssertId("a"))
+				.pipe(numpadPlusAssertId("a"))
+				.pipe(arrowDownAssertId("end"))
+				.pipe(assertEnd)
+				.pipe(start)
+				.pipe(resetKeyOptions);
+		});
+
+		asyncTest("Elements reverse", 5, function ()
+		{
+			useEnterArrowDownKeysOptions();
+
+			$container
+				.append('<input id="end" type="submit" value="submit button that is at the end of the plussable elements" />')
+				.append('<input id="a" type="text" value="text field that is plussable" data-plus-as-tab="true" />')
+				.append('<input id="start" type="text" value="text field that is the starting point" data-plus-as-tab="true" />');
+
+			$.when()
+				.pipe(assertFocusStart)
+				.pipe(enterAssertId("a", true))
+				.pipe(numpadPlusAssertId("a", true))
+				.pipe(arrowDownAssertId("end", true))
+				.pipe(assertEnd)
+				.pipe(start)
+				.pipe(resetKeyOptions);
 		});
 
 	} ());
