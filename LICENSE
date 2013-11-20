@@ -1,5 +1,5 @@
 PlusAsTab javascript library.
-A jQuery plugin to use the numpad plus key as a tab key equivalent.
+A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.
 Developed for PTS by Joel Purra <http://joelpurra.se/>
 
 Copyright (c) 2011, 2012, The Swedish Post and Telecom Authority (PTS)
