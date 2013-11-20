@@ -1,0 +1,42 @@
+{
+    "name": "plusastab",
+    "title": "PlusAsTab",
+    "description": "A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.",
+    "keywords": [
+        "tab",
+        "tabbing",
+        "usability",
+        "focus",
+        "keyboard",
+        "shortcuts",
+        "tabbable",
+        "form",
+        "forms",
+        "input",
+        "tabindex",
+        "numpad",
+        "tenkey"
+    ],
+    "version": "0.0.0",
+    "author": {
+        "name": "The Swedish Post and Telecom Authority (PTS)",
+        "url": "http://pts.se/"
+    },
+    "maintainers": [{
+        "name": "Joel Purra",
+        "email": "code+jquery@joelpurra.com",
+        "url": "http://joelpurra.com/"
+    }],
+    "licenses": [{
+        "type": "BSD-3-Clause",
+        "url": "https://github.com/joelpurra/plusastab/blob/master/LICENSE"
+    }],
+    "homepage": "http://joelpurra.github.com/plusastab",
+    "docs": "http://joelpurra.github.com/plusastab",
+    "bugs": "https://github.com/joelpurra/plusastab/issues",
+    "demo": "http://joelpurra.github.com/plusastab/example/enter-as-tab.html",
+    "dependencies": {
+        "jquery": ">=1.7",
+        "emulatetab": "~0.2.1"
+    }
+}
