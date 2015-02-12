@@ -9,10 +9,8 @@ With PlusAsTab, elements can be marked as *plussable*, allowing the user to use 
 
 ## Get it
 
-To include dependencies, make sure to get the submodules too.
-
-```
-git clone --recursive git://github.com/joelpurra/plusastab.git
+```bash
+bower install jquery-plusastab
 ```
 
 ## Demos

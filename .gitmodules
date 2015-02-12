@@ -1,9 +1,0 @@
-[submodule "lib/emulatetab"]
-	path = lib/emulatetab
-	url = git://github.com/joelpurra/emulatetab.git
-[submodule "test/qunit"]
-	path = test/qunit
-	url = git://github.com/jquery/qunit.git
-[submodule "test/jquery-ui"]
-	path = test/jquery-ui
-	url = git://github.com/jquery/jquery-ui.git
