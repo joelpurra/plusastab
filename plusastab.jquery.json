@@ -17,7 +17,7 @@
         "numpad",
         "tenkey"
     ],
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": {
         "name": "The Swedish Post and Telecom Authority (PTS)",
         "url": "http://pts.se/"
@@ -37,6 +37,6 @@
     "demo": "http://joelpurra.github.com/plusastab/example/enter-as-tab.html",
     "dependencies": {
         "jquery": "^2.0.0",
-        "emulatetab": "^0.2.8"
+        "emulatetab": "^0.2.9"
     }
 }
