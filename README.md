@@ -46,15 +46,19 @@ bower install jquery-plusastab
 ### Javascript
 
 ```javascript
+
+// Exclude plus as tab to the selected elements/containers
+// Please attention, negative selectors first!
+$(selector).plusAsTab(false);
+
 // Apply plus as tab to the selected elements/containers
 $(selector).plusAsTab();
 
-// Exclude plus as tab to the selected elements/containers
-$(selector).plusAsTab(false);
-
 // Equivalent static function
-JoelPurra.PlusOnTab.plusAsTab($(selector));
-JoelPurra.PlusOnTab.plusAsTab($(selector), false);
+// Please attention, negative selectors first!
+JoelPurra.PlusAsTab.plusAsTab($(selector), false);
+JoelPurra.PlusAsTab.plusAsTab($(selector));
+
 
 // Change the "tab" key from "numpad +" to something else
 JoelPurra.PlusAsTab.setOptions({
