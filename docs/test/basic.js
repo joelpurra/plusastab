@@ -140,7 +140,7 @@ QUnit,
 
     // Test keys simulation helpers
     // Keys from
-    // http://api.jquery.com/event.which/
+    // https://api.jquery.com/event.which/
     // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
     var KEY_ENTER = 13;
     var KEY_ARROW_DOWN = 40;

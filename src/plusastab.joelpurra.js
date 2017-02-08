@@ -1,7 +1,7 @@
 /*!
 * @license PlusAsTab
 * Copyright (c) 2011, 2012 The Swedish Post and Telecom Authority (PTS)
-* Developed for PTS by Joel Purra <http://joelpurra.se/>
+* Developed for PTS by Joel Purra <https://joelpurra.com/>
 * Released under the BSD license.
 *
 * A jQuery plugin to use the numpad plus key as a tab key equivalent.
@@ -93,7 +93,7 @@ var JoelPurra = JoelPurra || {};
     var eventNamespace = ".PlusAsTab",
 
         // Keys from
-        // http://api.jquery.com/event.which/
+        // https://api.jquery.com/event.which/
         // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
         KEY_NUM_PLUS = 107,
 

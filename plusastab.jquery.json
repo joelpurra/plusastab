@@ -20,21 +20,21 @@
     "version": "0.2.2",
     "author": {
         "name": "The Swedish Post and Telecom Authority (PTS)",
-        "url": "http://pts.se/"
+        "url": "https://pts.se/"
     },
     "maintainers": [{
         "name": "Joel Purra",
         "email": "code+jquery@joelpurra.com",
-        "url": "http://joelpurra.com/"
+        "url": "https://joelpurra.com/"
     }],
     "licenses": [{
         "type": "BSD-3-Clause",
         "url": "https://github.com/joelpurra/plusastab/blob/master/LICENSE"
     }],
-    "homepage": "http://joelpurra.github.com/plusastab",
-    "docs": "http://joelpurra.github.com/plusastab",
+    "homepage": "https://joelpurra.github.io/plusastab",
+    "docs": "https://joelpurra.github.io/plusastab",
     "bugs": "https://github.com/joelpurra/plusastab/issues",
-    "demo": "http://joelpurra.github.com/plusastab/example/enter-as-tab.html",
+    "demo": "https://joelpurra.github.io/plusastab/example/enter-as-tab.html",
     "dependencies": {
         "jquery": "^2.0.0",
         "emulatetab": "^0.2.9"

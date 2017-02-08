@@ -1,7 +1,7 @@
-# [PlusAsTab](http://joelpurra.github.com/plusastab) javascript library
+# [PlusAsTab](https://joelpurra.github.io/plusastab) javascript library
 A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.
 
-With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the  [numeric keypad](http://en.wikipedia.org/wiki/Numeric_keypad) (*numpad* or *tenkey* for short) to navigate page. For numeric input it is closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry in multiple fields.
+With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the  [numeric keypad](https://en.wikipedia.org/wiki/Numeric_keypad) (*numpad* or *tenkey* for short) to navigate page. For numeric input it is closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry in multiple fields.
 
 * The normal <kbd>tab</kbd> key is unaffected and works as usual.
 * Plussable fields that may need to have the plus character entered into them can still use the <kbd>+</kbd> key on the typewriter keys.
@@ -14,8 +14,8 @@ bower install jquery-plusastab
 ```
 
 ## Demos
-* [`example/demo.html`](http://joelpurra.github.com/plusastab/example/demo.html): Simple demo for playing around.
-* [`example/enter-as-tab.html`](http://joelpurra.github.com/plusastab/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
+* [`example/demo.html`](https://joelpurra.github.io/plusastab/example/demo.html): Simple demo for playing around.
+* [`example/enter-as-tab.html`](https://joelpurra.github.io/plusastab/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
 
 ## Usage
 
@@ -25,7 +25,7 @@ bower install jquery-plusastab
 <!-- Can be applied to plussable elements one by one -->
 <input type="text" data-plus-as-tab="true" />
 <textarea data-plus-as-tab="true"></textarea>
-<a href="http://joelpurra.se/" data-plus-as-tab="true">Joel Purra</a>
+<a href="https://joelpurra.com/" data-plus-as-tab="true">Joel Purra</a>
 
 <input type="button" value="This button has not been enabled for plussing" />
 
@@ -60,7 +60,7 @@ JoelPurra.PlusOnTab.plusAsTab($(selector), false);
 JoelPurra.PlusAsTab.setOptions({
   // Use enter instead of plus
   // Number 13 found through demo at
-  // http://api.jquery.com/event.which/
+  // https://api.jquery.com/event.which/
   key: 13
 });
 
@@ -72,7 +72,7 @@ JoelPurra.PlusAsTab.setOptions({
 ```
 
 ### Using another key (or keys) instead of numpad plus
-PlusAsTab should be able to intercept most keys, since it listens to [the keydown event](http://api.jquery.com/keydown/). To change the key, use `JoelPurra.PlusAsTab.setOptions({key: YOUR_KEY});`, where `YOUR_KEY` is a number that you can find by using the [jQuery `event.which` demo](http://api.jquery.com/event.which/). In case you want multiple keys to function as tab, use an array; for example `[13, 40, 107]` for the enter key, arrow down key and numpad plus key.
+PlusAsTab should be able to intercept most keys, since it listens to [the keydown event](https://api.jquery.com/keydown/). To change the key, use `JoelPurra.PlusAsTab.setOptions({key: YOUR_KEY});`, where `YOUR_KEY` is a number that you can find by using the [jQuery `event.which` demo](https://api.jquery.com/event.which/). In case you want multiple keys to function as tab, use an array; for example `[13, 40, 107]` for the enter key, arrow down key and numpad plus key.
 
 ### Plussable elements
 Elements that can be focused/tabbed include `<input>`, `<select>`, `<textarea>`, `<button>` and `<a href="...">` (the `href` attribute must exist and the tag must have some contents). These are also the elements that can be plussable.
@@ -97,11 +97,11 @@ Developed to increase the speed and usability when entering numbers in consecuti
 ## Dependencies
 PlusAsTab's runtime dependencies are
 
-* [jQuery](http://jquery.com/)
+* [jQuery](https://jquery.com/)
 * [EmulateTab](https://github.com/joelpurra/emulatetab), one of PlusAsTab's sister projects.
 
 ## Browser compatibility
-Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](http://joelpurra.github.com/plusastab/test/) and then report any issues.
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](https://joelpurra.github.io/plusastab/test/) and then report any issues.
 
 ## Todo
 * Break out reusable key press functions from tests.
@@ -114,7 +114,7 @@ PlusAsTab's sister projects.
 * [EmulateTab](https://github.com/joelpurra/emulatetab) - the tab emulator used by both SkipOnTab and PlusAsTab.
 
 ## License
-Developed for PTS by Joel Purra <http://joelpurra.se/>
+Developed for PTS by Joel Purra <https://joelpurra.com/>
 
 Copyright (c) 2011, 2012, 2013, 2014, 2015 The Swedish Post and Telecom Authority (PTS)
 All rights reserved.
