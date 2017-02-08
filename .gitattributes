@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.gitattributes text
+.gitignore text
+LICENSE* text
+*.md text
+*.yml text
+*.js text
+*.json text
+
+*.css text diff=css
+*.html text diff=html
