@@ -165,4 +165,4 @@ PlusAsTab's sister projects.
 
 
 
-[PlusAsTab](https://joelpurra.github.io/plusastab) copyright &copy; 2011, 2012, 2013, 2014, 2015 The Swedish Post and Telecom Authority (PTS) All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).
+[PlusAsTab](https://joelpurra.github.io/plusastab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017 The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).

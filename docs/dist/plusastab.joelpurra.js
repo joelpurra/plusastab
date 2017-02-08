@@ -1,6 +1,6 @@
 /*!
 * @license PlusAsTab
-* Copyright (c) 2011, 2012 The Swedish Post and Telecom Authority (PTS)
+* Copyright (c) 2011, 2012, 2013, 2014, 2015, 2016, 2017 The Swedish Post and Telecom Authority (PTS)
 * Developed for PTS by Joel Purra <https://joelpurra.com/>
 * Released under the BSD license.
 *
