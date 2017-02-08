@@ -31,10 +31,10 @@
         "type": "BSD-3-Clause",
         "url": "https://github.com/joelpurra/plusastab/blob/master/LICENSE"
     }],
-    "homepage": "https://joelpurra.github.io/plusastab",
-    "docs": "https://joelpurra.github.io/plusastab",
+    "homepage": "https://joelpurra.com/projects/plusastab/",
+    "docs": "https://joelpurra.com/projects/plusastab/",
     "bugs": "https://github.com/joelpurra/plusastab/issues",
-    "demo": "https://joelpurra.github.io/plusastab/example/enter-as-tab.html",
+    "demo": "https://joelpurra.com/projects/plusastab/docs/example/enter-as-tab.html",
     "dependencies": {
         "jquery": "^2.0.0",
         "emulatetab": "^0.2.9"

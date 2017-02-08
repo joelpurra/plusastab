@@ -1,4 +1,11 @@
-# [PlusAsTab](https://joelpurra.github.io/plusastab) javascript library
+# [PlusAsTab](https://joelpurra.com/projects/plusastab/) javascript library
+
+<p class="donate">
+  <a href="https://joelpurra.com/donate/proceed/?amount=5&currency=usd"><kbd>Donate $5 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=25&currency=usd"><kbd>Donate $25 now</kbd></a>
+  <a href="https://joelpurra.com/donate/proceed/?amount=100&currency=usd&invoice=true"><kbd>Donate $100 now</kbd></a>
+  <a href="https://joelpurra.com/donate/"><kbd>More options</kbd></a>
+</p>
 
 A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.
 
@@ -23,8 +30,8 @@ bower install jquery-plusastab
 
 ## Demos
 
-- [`example/demo.html`](https://joelpurra.github.io/plusastab/example/demo.html): Simple demo for playing around.
-- [`example/enter-as-tab.html`](https://joelpurra.github.io/plusastab/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
+- [`example/demo.html`](https://joelpurra.com/projects/plusastab/docs/example/demo.html): Simple demo for playing around.
+- [`example/enter-as-tab.html`](https://joelpurra.com/projects/plusastab/docs/example/enter-as-tab.html): Setting the options to listen to the <kbd>enter</kbd>/<kbd>&crarr;</kbd> key instead.
 
 
 
@@ -141,7 +148,7 @@ PlusAsTab's runtime dependencies are
 
 ## Browser compatibility
 
-Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](https://joelpurra.github.io/plusastab/test/) and then report any issues.
+Should be about as compatible as jQuery is, since most functions depend on jQuery's normalization. You are engouraged to [run the PlusAsTab test suite](https://joelpurra.com/projects/plusastab/docs/test/) and then report any issues.
 
 
 
@@ -165,4 +172,4 @@ PlusAsTab's sister projects.
 
 
 
-[PlusAsTab](https://joelpurra.github.io/plusastab) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017 The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/).
+[PlusAsTab](https://joelpurra.com/projects/plusastab/) copyright &copy; 2011, 2012, 2013, 2014, 2015, 2016, 2017 The Swedish Post and Telecom Authority (PTS). All rights reserved. Released under the BSD license. Developed for PTS by [Joel Purra](https://joelpurra.com/). [Your donations are appreciated!](https://joelpurra.com/donate/)
