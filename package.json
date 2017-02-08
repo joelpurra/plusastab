@@ -1,0 +1,39 @@
+{
+  "name": "plusastab",
+  "title": "plusastab",
+  "version": "0.2.2",
+  "description": "A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.",
+  "homepage": "https://joelpurra.com/projects/plusastab/",
+  "bugs": {
+    "url": "https://github.com/joelpurra/plusastab/issues"
+  },
+  "author": "Joel Purra <code@joelpurra.com> (https://joelpurra.com/)",
+  "main": "src/plusastab.joelpurra.js",
+  "scripts": {},
+  "pre-commit": [
+    "build",
+    "git-add-dist"
+  ],
+  "license": "BSD-3-Clause",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelpurra/plusastab.git"
+  },
+  "keywords": [
+    "tab",
+    "tabbing",
+    "usability",
+    "focus",
+    "keyboard",
+    "shortcuts",
+    "tabbable",
+    "form",
+    "forms",
+    "input",
+    "tabindex",
+    "numpad",
+    "tenkey"
+  ]
+}
