@@ -11,15 +11,23 @@
   "main": "src/plusastab.joelpurra.js",
   "scripts": {
     "build": "rimraf ./docs/dist && mkdirp ./docs/dist && cp ./src/plusastab.joelpurra.js ./docs/dist/",
+    "test": "npm run --silent lint",
+    "lint": "npm run --silent eslint --",
+    "eslint": "eslint ./src ./docs/test",
     "git-add-dist": "git add ./docs/dist/plusastab.joelpurra.js"
   },
   "pre-commit": [
     "build",
+    "test",
     "git-add-dist"
   ],
   "license": "BSD-3-Clause",
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^3.14.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
     "mkdirp": "^0.5.1",
     "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4"
