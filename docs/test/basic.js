@@ -2,13 +2,7 @@
 JoelPurra,
 jQuery,
 console,
-module,
-test,
-asyncTest,
-start,
-ok,
-strictEqual,
-notStrictEqual,
+QUnit,
 */
 
 (function($)
@@ -145,9 +139,9 @@ notStrictEqual,
     }
 
     // Test keys simulation helpers
-        // Keys from
-        // http://api.jquery.com/event.which/
-        // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
+    // Keys from
+    // http://api.jquery.com/event.which/
+    // https://developer.mozilla.org/en/DOM/KeyboardEvent#Virtual_key_codes
     var KEY_ENTER = 13;
     var KEY_ARROW_DOWN = 40;
     var KEY_NUM_PLUS = 107;
@@ -170,8 +164,8 @@ notStrictEqual,
     // Test helpers
     function normalSetup()
     {
-        var $qunitFixture = $("#qunit-fixture");
-        var $div = $("<div />");
+        var $qunitFixture = $("#qunit-fixture"),
+            $div = $("<div />");
 
         $div.appendTo($qunitFixture);
 
@@ -207,7 +201,7 @@ notStrictEqual,
     }
 
     // Assertion functions
-    function assertId($element, id)
+    function assertId(assert, $element, id)
     {
             // DEBUG
         if ($element.attr("id") !== id)
@@ -219,93 +213,98 @@ notStrictEqual,
                 /* eslint-enable no-console */
             } catch (e)
             {
-                    // Could show an alert message, but what the hell
+                // Could show an alert message, but what the hell
             }
         }
 
-        strictEqual($element.attr("id"), id, "The id did not match for element " + $element);
+        assert.strictEqual($element.attr("id"), id, "The id did not match for element " + $element);
     }
 
-    function assertFocusedId(id)
+    function assertFocusedId(assert, id)
     {
-        assertId(getFocusedElement(), id);
+        assertId(assert, getFocusedElement(), id);
     }
 
-    function assertFocusStart()
+    function assertFocusStart(assert)
     {
         $("#start").focus();
 
-        assertFocusedId("start");
+        assertFocusedId(assert, "start");
     }
 
-    function assertEnd()
+    function assertEnd(assert)
     {
-        assertFocusedId("end");
+        assertFocusedId(assert, "end");
     }
 
-    function enterAssertId(id, shift)
+    function enterAssertId(assert, id, shift)
     {
         return function()
         {
             return pressEnterAndGetFocusedElement(shift)
                 .pipe(function($focused)
                 {
-                    assertId($focused, id);
+                    assertId(assert, $focused, id);
                 });
         };
     }
 
-    function arrowDownAssertId(id, shift)
+    function arrowDownAssertId(assert, id, shift)
     {
         return function()
         {
             return pressArrowDownAndGetFocusedElement(shift)
                 .pipe(function($focused)
                 {
-                    assertId($focused, id);
+                    assertId(assert, $focused, id);
                 });
         };
     }
 
-    function numpadPlusAssertId(id, shift)
+    function numpadPlusAssertId(assert, id, shift)
     {
         return function()
         {
             return pressNumpadPlusAndGetFocusedElement(shift)
                 .pipe(function($focused)
                 {
-                    assertId($focused, id);
+                    assertId(assert, $focused, id);
                 });
         };
     }
 
     (function()
     {
-        module("Library load");
+        QUnit.module("Library load");
 
-        test("Object exists", 3, function()
-    {
-            notStrictEqual(typeof (JoelPurra.PlusAsTab), "undefined", "JoelPurra.PlusAsTab is undefined.");
-            strictEqual(typeof (JoelPurra.PlusAsTab), "object", "JoelPurra.PlusAsTab is not an object.");
-            strictEqual(typeof ($.fn.plusAsTab), "function", "$.fn.plusAsTab is not a function.");
+        QUnit.test("Object exists", function(assert)
+        {
+            assert.expect(3);
+
+            assert.notStrictEqual(typeof (JoelPurra.PlusAsTab), "undefined", "JoelPurra.PlusAsTab is undefined.");
+            assert.strictEqual(typeof (JoelPurra.PlusAsTab), "object", "JoelPurra.PlusAsTab is not an object.");
+            assert.strictEqual(typeof ($.fn.plusAsTab), "function", "$.fn.plusAsTab is not a function.");
         });
     }());
 
     (function()
     {
-        module("init");
+        QUnit.module("init");
 
-        asyncTest("Static elements", 5, function()
+        QUnit.test("Static elements", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             var $staticContainer = $("#elements-initialized-at-startup");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("b"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start)
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "b"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done)
                 .pipe(function()
             {
                     // Run the static tests only once
@@ -316,81 +315,96 @@ notStrictEqual,
 
     (function()
     {
-        module("Elements forward",
+        QUnit.module("Elements forward",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("With class name", 3, function()
+        QUnit.test("With class name", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" class=\"plus-as-tab\" />")
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("With data attribute", 3, function()
+        QUnit.test("With data attribute", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" data-plus-as-tab=\"true\" />")
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("Elements reverse",
+        QUnit.module("Elements reverse",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("With class name", 3, function()
+        QUnit.test("With class name", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" class=\"plus-as-tab\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("With data attribute", 3, function()
+        QUnit.test("With data attribute", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" data-plus-as-tab=\"true\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("setOptions",
+        QUnit.module("setOptions",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Enter as tab", 5, function()
+        QUnit.test("Enter as tab", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             useEnterKeyOptions();
 
             $container
@@ -399,17 +413,20 @@ notStrictEqual,
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(enterAssertId("a"))
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(enterAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start)
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(enterAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(enterAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done)
                 .pipe(resetKeyOptions);
         });
 
-        asyncTest("Enter as tab reverse", 5, function()
+        QUnit.test("Enter as tab reverse", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             useEnterKeyOptions();
 
             $container
@@ -418,25 +435,28 @@ notStrictEqual,
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" data-plus-as-tab=\"true\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(enterAssertId("a", true))
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(enterAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start)
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(enterAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(enterAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done)
                 .pipe(resetKeyOptions);
         });
     }());
 
     (function()
     {
-        module("setOptions multiple keys",
+        QUnit.module("setOptions multiple keys",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Elements forward", 5, function()
+        QUnit.test("Elements forward", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             useEnterArrowDownKeysOptions();
 
             $container
@@ -445,17 +465,20 @@ notStrictEqual,
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(enterAssertId("a"))
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(arrowDownAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start)
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(enterAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(arrowDownAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done)
                 .pipe(resetKeyOptions);
         });
 
-        asyncTest("Elements reverse", 5, function()
+        QUnit.test("Elements reverse", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             useEnterArrowDownKeysOptions();
 
             $container
@@ -464,25 +487,28 @@ notStrictEqual,
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" data-plus-as-tab=\"true\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(enterAssertId("a", true))
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(arrowDownAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start)
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(enterAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(arrowDownAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done)
                 .pipe(resetKeyOptions);
         });
     }());
 
     (function()
     {
-        module("Containers forward",
+        QUnit.module("Containers forward",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("With class name", 4, function()
+        QUnit.test("With class name", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div class=\"plus-as-tab\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -490,15 +516,18 @@ notStrictEqual,
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("With data attribute", 4, function()
+        QUnit.test("With data attribute", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -506,15 +535,18 @@ notStrictEqual,
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude with class name", 5, function()
+        QUnit.test("Exclude with class name", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div class=\"plus-as-tab\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -522,16 +554,19 @@ notStrictEqual,
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" class=\"disable-plus-as-tab\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude with data attribute", 5, function()
+        QUnit.test("Exclude with data attribute", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -539,24 +574,27 @@ notStrictEqual,
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" data-plus-as-tab=\"false\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("Containers reverse",
+        QUnit.module("Containers reverse",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("With class name", 4, function()
+        QUnit.test("With class name", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append($("<div class=\"plus-as-tab\" />")
@@ -564,15 +602,18 @@ notStrictEqual,
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("With data attribute", 4, function()
+        QUnit.test("With data attribute", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append($("<div data-plus-as-tab=\"true\" />")
@@ -580,15 +621,18 @@ notStrictEqual,
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude with class name", 5, function()
+        QUnit.test("Exclude with class name", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div class=\"plus-as-tab\" />")
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" class=\"disable-plus-as-tab\" />")
@@ -596,16 +640,19 @@ notStrictEqual,
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude with data attribute", 5, function()
+        QUnit.test("Exclude with data attribute", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" data-plus-as-tab=\"false\" />")
@@ -613,24 +660,27 @@ notStrictEqual,
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />"));
 
             $.when()
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab elements forward enable",
+        QUnit.module("$.fn.plusAsTab elements forward enable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Element", 3, function()
+        QUnit.test("Element", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />");
@@ -640,22 +690,25 @@ notStrictEqual,
             {
                     $("#start").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab elements reverse enable",
+        QUnit.module("$.fn.plusAsTab elements reverse enable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Element", 3, function()
+        QUnit.test("Element", function(assert)
         {
+            assert.expect(3);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />");
@@ -665,22 +718,25 @@ notStrictEqual,
             {
                     $("#start").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab containers forward enable",
+        QUnit.module("$.fn.plusAsTab containers forward enable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Container", 4, function()
+        QUnit.test("Container", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div id=\"container\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -692,15 +748,18 @@ notStrictEqual,
             {
                     $("#container").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude", 5, function()
+        QUnit.test("Exclude", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div id=\"container\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -712,24 +771,27 @@ notStrictEqual,
             {
                     $("#container").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab containers reverse enable",
+        QUnit.module("$.fn.plusAsTab containers reverse enable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Container", 4, function()
+        QUnit.test("Container", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
                 .append($("<div id=\"container\" />")
@@ -741,15 +803,18 @@ notStrictEqual,
             {
                     $("#container").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
 
-        asyncTest("Exclude", 5, function()
+        QUnit.test("Exclude", function(assert)
         {
+            assert.expect(5);
+            var done = assert.async();
+
             $container
                 .append($("<div id=\"container\" />")
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" data-plus-as-tab=\"false\" />")
@@ -761,24 +826,27 @@ notStrictEqual,
             {
                     $("#container").plusAsTab();
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("a", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "a", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab elements forward disable",
+        QUnit.module("$.fn.plusAsTab elements forward disable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Element", 4, function()
+        QUnit.test("Element", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -789,23 +857,26 @@ notStrictEqual,
             {
                     $("#end").plusAsTab(false);
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab elements reverse disable",
+        QUnit.module("$.fn.plusAsTab elements reverse disable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Element", 4, function()
+        QUnit.test("Element", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"end\" type=\"submit\" value=\"submit button that is at the end of the plussable elements\" />")
@@ -816,23 +887,26 @@ notStrictEqual,
             {
                     $("#end").plusAsTab(false);
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab containers forward disable",
+        QUnit.module("$.fn.plusAsTab containers forward disable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Container", 4, function()
+        QUnit.test("Container", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append("<input id=\"start\" type=\"text\" value=\"text field that is the starting point\" />")
@@ -844,23 +918,26 @@ notStrictEqual,
             {
                     $("#container").plusAsTab(false);
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(numpadPlusAssertId("end"))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(numpadPlusAssertId(assert, "end"))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 
     (function()
     {
-        module("$.fn.plusAsTab containers reverse disable",
+        QUnit.module("$.fn.plusAsTab containers reverse disable",
             {
-                setup: normalSetup,
+                beforeEach: normalSetup,
             });
 
-        asyncTest("Container", 4, function()
+        QUnit.test("Container", function(assert)
         {
+            assert.expect(4);
+            var done = assert.async();
+
             $container
                 .append($("<div data-plus-as-tab=\"true\" />")
                     .append($("<div id=\"container\" />")
@@ -872,11 +949,11 @@ notStrictEqual,
             {
                     $("#container").plusAsTab(false);
                 })
-                .pipe(assertFocusStart)
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(numpadPlusAssertId("end", true))
-                .pipe(assertEnd)
-                .pipe(start);
+                .pipe(assertFocusStart.bind(null, assert))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(numpadPlusAssertId(assert, "end", true))
+                .pipe(assertEnd.bind(null, assert))
+                .pipe(done);
         });
     }());
 }(jQuery));
