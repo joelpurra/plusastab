@@ -9,6 +9,12 @@
 
 A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.
 
+- [Project page](https://joelpurra.com/projects/plusastab/)
+- [Source code on Github](https://github.com/joelpurra/plusastab)
+- [Basic demo](https://joelpurra.com/projects/plusastab/docs/example/demo.html)
+- [Enter-as-tab demo](https://joelpurra.com/projects/plusastab/docs/example/enter-as-tab.html)
+- [Test suite](https://joelpurra.com/projects/plusastab/docs/test/)
+
 With PlusAsTab, elements can be marked as *plussable*, allowing the user to use the <kbd>+</kbd> on the  [numeric keypad](https://en.wikipedia.org/wiki/Numeric_keypad) (*numpad* or *tenkey* for short) to navigate page. For numeric input it is closer than the <kbd>tab</kbd> key and therefor increases input speed and allows for one-handed entry in multiple fields.
 
 - The normal <kbd>tab</kbd> key is unaffected and works as usual.
