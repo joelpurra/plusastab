@@ -9,6 +9,14 @@
 
 A jQuery plugin to use the numpad plus key (configurable) as a tab key equivalent.
 
+
+
+> ## ⚠️ This project has been archived
+>
+> No future updates are planned. Feel free to continue using it, but expect no support.
+
+
+
 - [Project page](https://joelpurra.com/projects/plusastab/)
 - [Source code on Github](https://github.com/joelpurra/plusastab)
 - [Basic demo](https://joelpurra.com/projects/plusastab/docs/example/demo.html)
